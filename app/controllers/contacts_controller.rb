@@ -1,3 +1,6 @@
+# Updated to use preferred way of using (nested) params
+# {:contact => {:name=>"The Name", :phone=>"The Phone", :email=>"The Email"}}
+
 class ContactsController < ApplicationController
   def index
     @contacts = Contact.all
@@ -10,9 +13,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(:name=>params[:name],
-                           :phone=>params[:phone],
-                           :email=>params[:email])
+    @contact = Contact.new(params[:contact])
     if @contact.save
       render('contacts/success.html.erb')
     else
@@ -32,9 +33,7 @@ class ContactsController < ApplicationController
 
   def update
     @contact = Contact.find(params[:id])
-    if @contact.update(:name=>params[:name],
-                       :phone=>params[:phone],
-                       :email=>params[:email])
+    if @contact.update(params[:contact])
       render('contacts/success.html.erb')
     else
       render('contacts/edit.html.erb')
