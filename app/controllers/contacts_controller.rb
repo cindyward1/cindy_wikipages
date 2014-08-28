@@ -19,6 +19,9 @@ class ContactsController < ApplicationController
     else
       render('contacts/new.html.erb')
     end
+    if params[:phone] != ""
+      @phone = Phone.create(:number=>params[:phone], :contact_id=>@contact.id)
+    end
   end
 
   def show
